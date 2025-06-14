@@ -24,30 +24,31 @@ private:
         Node(T&& value): data(std::move(value)), next(nullptr) , prev(nullptr){}
     };
 
-    Node* _head;
-    Node* _tail;
-    std::size_t _size;
-    std::mutex _mutex;
+    Node* _head; // Pointer to the front of the queue
+    Node* _tail; // Pointer to the back of the queue
+    std::size_t _size; // size of the queue
+    std::mutex _mutex; // lock for thread safety
 
-    std::string _filename;
-    void clear();
+    std::string _filename; // to make it persistance
+    void clear(); // Helper function to clear the queue
+     
 public:
 
-    CustomQueue(const std::string& fname = "queue_" + std::string(typeid(T).name()) + ".txt");
+    CustomQueue(const std::string& fname = "queue_" + std::string(typeid(T).name()) + ".txt"); // constructo
 
-    CustomQueue(const CustomQueue& other);
+    CustomQueue(const CustomQueue& other); // copy constructor
 
-    CustomQueue(CustomQueue&& other) noexcept;
+    CustomQueue(CustomQueue&& other) noexcept; // move constructor
 
-    ~CustomQueue();
+    ~CustomQueue(); // destructor
 
-    CustomQueue& operator=(const CustomQueue& other);
-    CustomQueue& operator=(CustomQueue&& other) noexcept;
+    CustomQueue& operator=(const CustomQueue& other); // copy assignment operator
+    CustomQueue& operator=(CustomQueue&& other) noexcept; // move assignment operator
 
-    T& front();
-    const T& front() const;
-    T& back();
-    const T& back() const;
+    T& front(); // Get the front element
+    const T& front() const; // Get the front element (const)
+    T& back(); // Get the back element
+    const T& back() const; // Get the back element (const)
 
     bool empty() const;
     std::size_t size() const;
@@ -60,9 +61,6 @@ public:
     void loadFromFile(const std::string& fname);
     void push_without_save(const T& value);
 
-
-
-        
 
 };
 
